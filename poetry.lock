@@ -188,6 +188,18 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "pillow"
+version = "9.3.0"
+description = "Python Imaging Library (Fork)"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-issues (>=3.0.1)", "sphinx-removed-in", "sphinxext-opengraph"]
+tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
+
+[[package]]
 name = "werkzeug"
 version = "2.2.2"
 description = "The comprehensive WSGI web application library."
@@ -228,7 +240,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "817f473052764157ba2f57d0bb575ef872208f250f2fc4c54a456a7752cdb40f"
+content-hash = "5126f6afd8e5726ca3ec0c7f5ccd4e94956c0dab90a6092a1226c9f8dd2ce9d9"
 
 [metadata.files]
 aiohttp = []
@@ -247,6 +259,7 @@ itsdangerous = []
 jinja2 = []
 markupsafe = []
 multidict = []
+pillow = []
 werkzeug = []
 yarl = []
 zipp = []
