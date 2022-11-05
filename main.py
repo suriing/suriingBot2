@@ -1,19 +1,35 @@
 import os
 from keep_alive import keep_alive
-from discord.ext import commands
+import discord
+from discord import app_commands
+from discord import ui
 
-bot = commands.Bot(
-    command_prefix="!",  # Change to desired prefix
-    case_insensitive=True  # Commands aren't case-sensitive
-)
+class MyClient(discord.Client):               
+    def __init__(self, *, intents: discord.Intents):
+        super().__init__(intents=intents)
+    # A CommandTree is a special type that holds all the appli    cation command                                                   
+    # state required to make it work. This is a separate class     because it               
+    # allows all the extra state to be opt-in.
+    # Whenever you want to work with application commands, you    r tree is used                                                  
+    # to store and work with them.            
+    # Note: When using commands.Bot instead of discord.Client,     the bot will
+    # maintain its own tree instead.
+        self.tree = app_commands.CommandTree(self)
+    # In this basic example, we just synchronize the app commands     to one guild.
+    # Instead of specifying a guild to every command, we copy over     our global commands instead.
+    # By doing so, we don't have to wait up to an hour until they     are shown to the end-user.
+    async def setup_hook(self):
+    # This copies the global commands over to your guild.
+    # self.tree.copy_global_to()
+        await self.tree.sync()
 
-bot.author_id = 487258918465306634  # Change to your discord id!!!
+intents = discord.Intents.all() 
+client = MyClient(intents=intents)
 
-
-@bot.event
+@client.event
 async def on_ready():  # When the bot is ready
     print("I'm in")
-    print(bot.user)  # Prints the bot's username and identifier
+    print(client.user)  # Prints the bot's username and identifier
 
 
 extensions = [
@@ -22,8 +38,8 @@ extensions = [
 
 if __name__ == '__main__':  # Ensures this is the file being ran
     for extension in extensions:
-        bot.load_extension(extension)  # Loades every extension.
+        client.load_extension(extension)  # Loades every extension.
 
 keep_alive()  # Starts a webserver to be pinged.
 token = os.environ.get("token")
-bot.run(token)  # Starts the bot
+client.run(token)  # Starts the bot
