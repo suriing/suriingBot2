@@ -1,8 +1,8 @@
 import os
 from keep_alive import keep_alive
-import discord
-from discord import app_commands
-from discord import ui
+import discord
+from discord import app_commands
+from discord import ui
 
 class MyClient(discord.Client):               
     def __init__(self, *, intents: discord.Intents):
