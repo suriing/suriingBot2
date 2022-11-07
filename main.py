@@ -1,12 +1,14 @@
 import os
 import random
 import asyncio
+import re
 
-from keep_alive import keep_alive
 import discord
 from discord import app_commands
 from discord import ui
+from keep_alive import keep_alive
 from image2ascii import image_to_ascii, text_to_img
+from ladder_riding import ladder
 
 
 class MyClient(discord.Client):
@@ -183,6 +185,66 @@ async def context_ascii_to_image(
         await interaction.followup.send(file=picture)
     os.unlink(attach.filename)
     os.unlink(tempfp)
+
+
+@client.tree.command(
+    name="ladder", description="""/ladder input:A B C D or /ladder input:8"""
+)
+@app_commands.describe(input="ladder riding game participants or participants number")
+async def ladder_riding(interaction: discord.Interaction, input: str):
+    people_dict = {}
+    if input.isdecimal():
+        people_num = int(input)
+    else:
+        people_list = input.split()
+        people_num = len(people_list)
+        ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        for i in range(people_num):
+            match = re.search("<@([\d]*)>", people_list[i])
+            if match:
+                current_user = await client.fetch_user(int(match[1]))
+                people_list[i] = current_user.name
+            people_dict[ALPHABET[i]] = people_list[i]
+    horizontal_ladder = max(15, 5 * people_num)
+    if people_num > 26:
+        await interaction.response.send_message(
+            "인원은 2명 이상, 최대 26명까지 가능합니다...\nPlease input between 2 and 26 people..."
+        )
+    elif people_num < 2:
+        await interaction.response.send_message(
+            "인원은 2명 이상, 최대 26명까지 가능합니다...\nPlease input between 2 and 26 people..."
+        )
+    else:
+        la1 = ladder()
+        la1.run(Peoples=people_num, HLadders=horizontal_ladder)
+        la1_text = f"Input: {str(input)}\n당첨(Prize) : {str(la1.prize)}\n당첨자(Winner) : {la1.winner}"
+        if len(people_dict) > 0:
+            pdtxt = ""  # str(people_dict)
+            for key in people_dict.keys():
+                if key == la1.winner:
+                    pdtxt += f"\U0001F3C6 {key} : {people_dict[key]} \U0001F3C6\n"
+                else:
+                    pdtxt += f"   {key} : {people_dict[key]}\n"
+        else:
+            pdtxt = ""
+        # with open('pixmap.png', 'rb') as f:
+        #    picture = discord.File(f)
+        #    await ctx.send(file=picture)
+        tempfp = "map-" + str(random.randint(1, 999)) + ".png"
+        la1.draw().save(tempfp, optimize=True)
+        with open(tempfp, "rb") as f:
+            picture = discord.File(f)
+            await interaction.response.send_message(
+                f"```{la1_text}\n{pdtxt}```", file=picture
+            )
+        os.unlink(tempfp)
+
+
+@ladder_riding.error
+async def ladder_riding_error(interaction: discord.Interaction, error):
+    await interaction.response.send_message(
+        f"Wrong command: {str(error)}\nUse /introduce_commands if you need command explanation."
+    )
 
 
 keep_alive()  # Starts a webserver to be pinged.
