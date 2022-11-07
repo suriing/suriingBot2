@@ -147,8 +147,8 @@ async def context_image_to_ascii(
     button_px200.callback = txt_px200
     button_px300.callback = txt_px300
     button_px400.callback = txt_px400
-    button_px400.callback = txt_px500
-    button_px500.callback = txt_px600
+    button_px500.callback = txt_px500
+    button_px600.callback = txt_px600
 
     await interaction.followup.send("Please select max size.", view=resize_view)
     ### UI end
