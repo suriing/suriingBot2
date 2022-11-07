@@ -74,6 +74,7 @@ async def context_image_to_ascii(
     button_px800 = ui.Button(label="px800", style=discord.ButtonStyle.red, row=2)
     button_px900 = ui.Button(label="px900", style=discord.ButtonStyle.red, row=2)
     button_px1000 = ui.Button(label="px1000", style=discord.ButtonStyle.red, row=2)
+    button_px1100 = ui.Button(label="px1100", style=discord.ButtonStyle.red, row=2)
     resize_view = ui.View()
     resize_view.add_item(button_px50)
     resize_view.add_item(button_px100)
@@ -86,6 +87,7 @@ async def context_image_to_ascii(
     resize_view.add_item(button_px800)
     resize_view.add_item(button_px900)
     resize_view.add_item(button_px1000)
+    resize_view.add_item(button_px1100)
 
     async def txt_px50(interaction: discord.Interaction):
         nonlocal ascii_text
@@ -158,9 +160,36 @@ async def context_image_to_ascii(
             view=None,
         )
         ascii_text = image_to_ascii(attach.filename, max_width=px, max_height=px)
-    async def txt_px(interaction: discord.Interaction, button: discord.Button):
+    async def txt_px800(interaction: discord.Interaction):
         nonlocal ascii_text
-        px = int(button.label[2:])
+        px = 800
+        await interaction.response.edit_message(
+            content=f"max {px}x{px} resized image will be transformed to ascii art!",
+            view=None,
+        )
+        ascii_text = image_to_ascii(attach.filename, max_width=px, max_height=px)
+    
+    async def txt_px900(interaction: discord.Interaction):
+        nonlocal ascii_text
+        px = 900
+        await interaction.response.edit_message(
+            content=f"max {px}x{px} resized image will be transformed to ascii art!",
+            view=None,
+        )
+        ascii_text = image_to_ascii(attach.filename, max_width=px, max_height=px)
+    
+    async def txt_px1000(interaction: discord.Interaction):
+        nonlocal ascii_text
+        px = 1000
+        await interaction.response.edit_message(
+            content=f"max {px}x{px} resized image will be transformed to ascii art!",
+            view=None,
+        )
+        ascii_text = image_to_ascii(attach.filename, max_width=px, max_height=px)
+    
+    async def txt_px1100(interaction: discord.Interaction):
+        nonlocal ascii_text
+        px = 1100
         await interaction.response.edit_message(
             content=f"max {px}x{px} resized image will be transformed to ascii art!",
             view=None,
@@ -175,9 +204,10 @@ async def context_image_to_ascii(
     button_px500.callback = txt_px500
     button_px600.callback = txt_px600
     button_px700.callback = txt_px700
-    button_px800.callback = txt_px
-    button_px900.callback = txt_px
-    button_px1000.callback = txt_px
+    button_px800.callback = txt_px800
+    button_px900.callback = txt_px900
+    button_px1000.callback = txt_px1000
+    button_px1100.callback = txt_px1100
 
     await interaction.followup.send("Please select max size.", view=resize_view)
     ### UI end
