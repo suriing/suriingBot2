@@ -247,7 +247,13 @@ async def ladder_riding_error(interaction: discord.Interaction, error):
     )
 
 
-keep_alive()  # Starts a webserver to be pinged.
 
-token = os.getenv("token")
-client.run(token)  # Starts the bot
+#use while loop to bypass discord ip limit block
+while __name__ == '__main__':
+    try:
+        keep_alive()  # Starts a webserver to be pinged.
+        client.run(os.getenv("token"))
+    except discord.errors.HTTPException as e:
+        print(e)
+        print("\n\n\nBLOCKED BY RATE LIMITS\nRESTARTING NOW\n\n\n")
+        os.system('kill 1')
