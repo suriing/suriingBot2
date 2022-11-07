@@ -67,11 +67,17 @@ async def context_image_to_ascii(
     button_px100 = ui.Button(label="px100", style=discord.ButtonStyle.primary)
     button_px200 = ui.Button(label="px200", style=discord.ButtonStyle.secondary)
     button_px300 = ui.Button(label="px300", style=discord.ButtonStyle.secondary)
+    button_px400 = ui.Button(label="px400", style=discord.ButtonStyle.secondary)
+    button_px500 = ui.Button(label="px500", style=discord.ButtonStyle.secondary)
+    button_px600 = ui.Button(label="px600", style=discord.ButtonStyle.secondary)
     resize_view = ui.View()
     resize_view.add_item(button_px50)
     resize_view.add_item(button_px100)
     resize_view.add_item(button_px200)
     resize_view.add_item(button_px300)
+    resize_view.add_item(button_px400)
+    resize_view.add_item(button_px500)
+    resize_view.add_item(button_px600)
 
     async def txt_px50(interaction: discord.Interaction):
         nonlocal ascii_text
@@ -108,11 +114,41 @@ async def context_image_to_ascii(
             view=None,
         )
         ascii_text = image_to_ascii(attach.filename, max_width=px, max_height=px)
+    
+    async def txt_px400(interaction: discord.Interaction):
+        nonlocal ascii_text
+        px = 400
+        await interaction.response.edit_message(
+            content=f"max {px}x{px} resized image will be transformed to ascii art!",
+            view=None,
+        )
+        ascii_text = image_to_ascii(attach.filename, max_width=px, max_height=px)
+    
+    async def txt_px500(interaction: discord.Interaction):
+        nonlocal ascii_text
+        px = 500
+        await interaction.response.edit_message(
+            content=f"max {px}x{px} resized image will be transformed to ascii art!",
+            view=None,
+        )
+        ascii_text = image_to_ascii(attach.filename, max_width=px, max_height=px)
+    
+    async def txt_px600(interaction: discord.Interaction):
+        nonlocal ascii_text
+        px = 600
+        await interaction.response.edit_message(
+            content=f"max {px}x{px} resized image will be transformed to ascii art!",
+            view=None,
+        )
+        ascii_text = image_to_ascii(attach.filename, max_width=px, max_height=px)
 
     button_px50.callback = txt_px50
     button_px100.callback = txt_px100
     button_px200.callback = txt_px200
     button_px300.callback = txt_px300
+    button_px400.callback = txt_px400
+    button_px400.callback = txt_px500
+    button_px500.callback = txt_px600
 
     await interaction.followup.send("Please select max size.", view=resize_view)
     ### UI end
