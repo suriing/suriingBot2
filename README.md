@@ -1,6 +1,4 @@
-# Discord.py bot with commands extension
-
-Basic template for a discord bot with the commands extension and [cogs](https://discordpy.readthedocs.io/en/latest/ext/commands/cogs.html)
+# Discord.py bot with slash command and context menu
 
 ### Pre-Setup
 
@@ -13,31 +11,22 @@ Then, click copy under token to get your bot's token. Your bot's icon can also b
 
 ### Setup
 
-Create a file named `.env`
+In replit Secrets, add `token=<your bot token>`
 
-Add `DISCORD_BOT_SECRET=<your bot token>`
-
-Your .env file should look something like this:
-
-```
-DISCORD_BOT_SECRET=<Bot token>
-```
-
-After adding your bot token to your .env file, navigate to line 10 in `main.py`. Change  `487258918465306634` to your user id. To get your id, ensure developer mode is enabled (Settings->Appearance->Advanced->Developer Mode) then right-click on yourself and click copy id.
-
-When you hit start everything should startup fine.
+After adding your bot token to your replit Secrets, hit start everything should startup fine.
 
 ### Uptime
 
 So now, all you have to do to keep your bot up is setup something to ping the site your bot made every 5 minutes or so.
 
-Go to [uptimerobot.com](https://uptimerobot.com/) and create an accout if you dont have one.  After verifying your account, click "Add New Monitor".
+Go to [betteruptime.com](https://betteruptime.com/) and create an accout if you dont have one.  After verifying your account, click "Create monitor".
 
 + For Monitor Type select "HTTP(s)"
 + In Friendly Name put the name of your bot
 + For your url, put the url of the website made for your repl.
 + Select any alert contacts you want, then click "Create Monitor" 
-![Uptime robot example](https://i.imgur.com/Qd9LXEy.png)
+
+If you have running personal server, consider [uptime-kuma](https://github.com/louislam/uptime-kuma) as alternative.
 
 Your bot should now be good to go, with near 100% uptime.
 
