@@ -63,7 +63,7 @@ def getSize(txt, font):
 
 
 def text_to_img(file, fontsize=11, ratio=2.14, colortheme="light"):
-    fontname = "/home/suriingBot2/src/consola.ttf"
+    fontname = "src/consola.ttf"
     text = ""
     with open(file, "r", encoding='utf-8') as f:
         for line in f.readlines():
