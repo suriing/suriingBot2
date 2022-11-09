@@ -168,7 +168,7 @@ async def context_image_to_ascii(
     tempfp = "ascii-" + str(random.randint(1, 999)) + ".txt"
     while ascii_text is None:
         await asyncio.sleep(1)
-    with open(tempfp, "w") as file:
+    with open(tempfp, "w", encoding="utf-8") as file:
         for line in ascii_text:
             file.write(line)
             file.write("\n")

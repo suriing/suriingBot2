@@ -49,7 +49,7 @@ def convert_pixel_to_character(pixel):
 
 
 def save_as_text(ascii_art):
-    with open("image.txt", "w") as file:
+    with open("image.txt", "w", encoding='utf-8') as file:
         for line in ascii_art:
             file.write(line)
             file.write("\n")
@@ -65,7 +65,7 @@ def getSize(txt, font):
 def text_to_img(file, fontsize=11, ratio=2.14, colortheme="light"):
     fontname = "consola.ttf"
     text = ""
-    with open(file, "r") as f:
+    with open(file, "r", encoding='utf-8') as f:
         for line in f.readlines():
             text += line
     if colortheme == "dark":
