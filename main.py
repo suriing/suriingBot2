@@ -312,4 +312,5 @@ try:
 except discord.errors.HTTPException:
     print("\n\n\nBLOCKED BY RATE LIMITS\nRESTARTING NOW\n\n\n")
     os.system("python restarter.py")
-    os.system('kill 1')
+    #os.system('kill 1')
+    os.kill(1, 1)
