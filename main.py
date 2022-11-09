@@ -6,9 +6,10 @@ import re
 import discord
 from discord import app_commands
 from discord import ui
-from keep_alive import keep_alive
-from image2ascii import image_to_ascii, text_to_img
-from ladder_riding import ladder
+
+from src.keep_alive import keep_alive
+from src.image2ascii import image_to_ascii, text_to_img
+from src.ladder_riding import ladder
 
 
 class MyClient(discord.Client):
