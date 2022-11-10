@@ -309,7 +309,7 @@ keep_alive()  # Starts a webserver to be pinged.
 
 #use restart.py to bypass discord ip limit block
 try:
-    client.run(os.getenv("token"))
+    client.run(os.getenv("BOT_TOKEN"))
 except discord.errors.HTTPException:
     print("\n\n\nBLOCKED BY RATE LIMITS\nRESTARTING NOW\n\n\n")
     os.system("python restarter.py")
