@@ -295,6 +295,19 @@ async def ladder_riding_error(interaction: discord.Interaction, error):
         f"Wrong command: {str(error)}\nUse /introduce_commands if you need command explanation."
     )
 
+@client.tree.command()
+async def del_conversation_from_bot(interaction: discord.Interaction):
+    """Delete conversations from bot. ONLY WORKS IN DM"""
+    inter_channel = interaction.channel
+    inter_channel_type = inter_channel.type
+    if inter_channel_type == discord.ChannelType.private:
+        await interaction.response.defer()
+        async for message in inter_channel.history(limit=None):
+            if message.author.id == client.user.id:
+                await message.delete(delay=1)
+        await interaction.followup.send("Conversations from bot are deleted!", ephemeral=True)
+    else:
+        await interaction.response.send_message(f"THIS COMMAND IS ONLY FOR DM.\nThis interaction channel is {inter_channel}.\nAnd channel type is {inter_channel_type}.", ephemeral=True)
 
 keep_alive()  # Starts a webserver to be pinged.
 
